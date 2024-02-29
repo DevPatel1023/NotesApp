@@ -14,19 +14,14 @@ app.use(express.json());
 //Static files
 app.use(express.static('public'));
 
+
 //Template engine
 app.use(expressLayouts);
 app.set('layout', './layouts/main');
 app.set('view engine', 'ejs');
 
-// Routes
-app.get('/',function(req,res){
-    const locals = {
-        title : "Node-js notes",
-        description: "This is a Node js Notes App"
-    }
-    res.render('index',locals);
-});
+//Routes
+app.use('/', require('./server/routes/index'));
 
 // listen on port
 app.listen(PORT,()=>{

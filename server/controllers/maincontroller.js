@@ -18,8 +18,8 @@ ABOUT
 
 exports.about = async (req ,res) => {
     const locals = {
-        title:"About Node-Js APP",
-        description : "About - Node-Js Notes App"
+        title:"About --> Node-Js APP",
+        description : "This is an Node-Js Notes App"
     }
     res.render('about',locals);
 }
