@@ -1,6 +1,6 @@
 :root {
     --background-color: #FFC700;
-    --bs-primary-rgb: #000000;
+    --bs-primary-rgb: #021750;
   }
   
   body {
@@ -13,8 +13,8 @@
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'unbounded', cursive;
-    font-weight: 800;
+    font-family: 'poppins', sans-serif;
+    font-weight: 700;
     color: var(--bs-primary-rgb);
 }
 
