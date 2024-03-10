@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
+const connectDB = require('./server/config/db');
 
 const app = express();
 const PORT = 5000 || process.env.PORT;
@@ -10,6 +11,9 @@ const PORT = 5000 || process.env.PORT;
 // 'unencoded' and 'json' are the two options for the type of data that can be sent in the request body
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// Connect to database
+connectDB();
 
 //Static files
 app.use(express.static('public'));
