@@ -3,9 +3,16 @@ require('dotenv').config();
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const connectDB = require('./server/config/db');
+const session = require('express-session');//for user stayes logged in
+const passport = require('passport'); //authentication
 
 const app = express();
 const PORT = 5000 || process.env.PORT;
+
+// Passport config
+app.use(passport.initialize());
+app.use(passport.session())
+
 
 // Middlewares function that parse the request bodies of incoming requests
 // 'unencoded' and 'json' are the two options for the type of data that can be sent in the request body
@@ -25,6 +32,7 @@ app.set('layout', './layouts/main');
 app.set('view engine', 'ejs');
 
 //Routes
+app.use('/', require('./server/routes/auth'));
 app.use('/', require('./server/routes/index'));
 app.use('/', require('./server/routes/dashboard'));
 
