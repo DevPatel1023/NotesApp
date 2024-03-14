@@ -5,13 +5,15 @@ const expressLayouts = require('express-ejs-layouts');
 const connectDB = require('./server/config/db');
 const session = require('express-session');//for user stayes logged in
 const passport = require('passport'); //authentication
+const MongoStore = require('connect-mongo');
+const authRoutes = require('./server/routes/auth');
 
 const app = express();
 const PORT = 5000 || process.env.PORT;
 
 // Passport config
 app.use(passport.initialize());
-app.use(passport.session())
+// app.use(passport.session())
 
 
 // Middlewares function that parse the request bodies of incoming requests
