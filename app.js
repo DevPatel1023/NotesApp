@@ -11,9 +11,20 @@ const authRoutes = require('./server/routes/auth');
 const app = express();
 const PORT = 5000 || process.env.PORT;
 
+// Session config
+app.use(session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 // 24 hours
+    }
+}));
+
 // Passport config
 app.use(passport.initialize());
-// app.use(passport.session())
+app.use(passport.session())
 
 
 // Middlewares function that parse the request bodies of incoming requests

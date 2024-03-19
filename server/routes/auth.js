@@ -6,7 +6,7 @@ const passport = require('passport');
 require('dotenv').config();
 
 const app = express();
-
+const user = require('../models/User');
 
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 passport.use(new GoogleStrategy({
@@ -19,20 +19,36 @@ passport.use(new GoogleStrategy({
   }
 ));
 
-//below code is for google authentication
-router.get('/auth/google',
-  passport.authenticate('google', { scope: ['email','profile'] })); // Removed the unnecessary semicolon here
 
-router.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/'
-  ,successRedirect: '/dashboard'
-}),
+//Google login route
+router.get('/auth/google',
+passport.authenticate('google', { scope: ['Email','profile'] }));
+
+
+//Recieving the google data
+router.get('/google/callback', 
+passport.authenticate('google', 
+{ failureRedirect: '/login-failure',
+successRedirect: '/dashboard'
+}
+),
 );
 
-//Router if something goes wrong
-router.get('/login/failure',(req,res)=>{
+//Router if something goes fails to login
+
+router.get('/login-failure', (req, res) => {
     res.send('Failed to login');
-});
+}); 
 
-
+//persists user data after successful authentication
+passport.serializeUser(function(user, done) {
+    done(null, user);
+  });
+//retrieve user data from the session
+[passport.deserializeUser(function(id, done) {
+    user.findById(id, function(err, user) {
+      done(err, user);
+    });
+  } 
+  )];
 module.exports = router; 
