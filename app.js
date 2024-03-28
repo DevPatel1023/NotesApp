@@ -7,7 +7,7 @@ const methodOverride = require("method-override");
 const connectDB = require('./server/config/db');
 const passport = require('passport');
 const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
+const MongoStore = require('connect-mongo');
 
 const app = express();
 const port = 5000 || process.env.PORT;
