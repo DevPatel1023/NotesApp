@@ -20,7 +20,10 @@ app.set('view engine','ejs');
 
 //Routes 
 app.use('/',require('./server/routes/index')); 
-
+//Handle 404
+app.use((req,res)=>{
+    res.status(404).render('404',{title:'404 Page Not Found'});
+});
 app.listen(port,()=>{
     console.log(`Server is running on port ${port}`);
 });
