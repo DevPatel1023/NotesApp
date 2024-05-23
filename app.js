@@ -5,14 +5,31 @@ const connectDB = require('./server/config/db');
 const session = require('express-session');
 const passport = require('passport');
 const MongoStore = require('connect-mongo');
+const mongoose = require('mongoose');
 
 const app = express();
+
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
+
+// Port
 const port = 5000 || process.env.PORT  ;
+
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: process.env.MONGO_URI })
+  }));
 
 //Passport initlization
 app.use(passport.initialize());
 app.use(passport.session());
 
+  
 //middleware
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
